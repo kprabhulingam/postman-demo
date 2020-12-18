@@ -31,8 +31,8 @@ jobs:
       - run: npm install -g newman newman-reporter-html
       # Runs a single command using the runners shell
       - name: Running the API Tests
-        run: newman run Testing.postman_collection.json -x -r html --reporter-html-export ./reports/htmlreport.html
+        run: newman run Testing.postman_collection.json -x -r cli,html,junit --reporter-html-export ./reports/htmlreport.html --reporter-junit-export ./reports/junit.xml
       - uses: actions/upload-artifact@v2
         with:
-          name: htmlreport
-          path: ./reports/htmlreport.html
+          name: reports
+          path: ./reports/
