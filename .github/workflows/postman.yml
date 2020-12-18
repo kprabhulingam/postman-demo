@@ -41,9 +41,6 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./reports/htmlreport.html
-      - name: open-issue
-        uses: rishabhgupta/git-action-issue@v2.0.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          title: ${{ github.run_number }}
-          body: ${{ steps.htmlreport.outputs.content }}
+      - name: Echo package.json
+        run: echo ${{ steps.htmlreport.outputs.content }}  
+      
