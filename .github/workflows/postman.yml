@@ -42,5 +42,5 @@ jobs:
         with:
           path: ./reports/htmlreport.html
       - name: Echo package.json
-        run: echo ${{ steps.htmlreport.outputs.content }}  
+        run: echo ${{ steps.package.outputs.content }}  
       
