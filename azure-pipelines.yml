@@ -1,0 +1,27 @@
+resources:
+  repositories:
+  - repository: self
+    type: git
+    ref: master
+jobs:
+- job: Job_1
+  displayName: Agent job 1
+  pool:
+    vmImage: vs2017-win2016
+  steps:
+  - checkout: self
+  - task: Npm@1
+    displayName: npm custom
+    inputs:
+      command: custom
+      verbose: false
+      customCommand: install -g newman
+  - task: CmdLine@2
+    displayName: Command Line Script
+    inputs:
+      script: newman run $(Build.SourcesDirectory)\Testing.postman_collection.json -x -r junit --reporter-junit-export $(build.artifactstagingdirectory)\Results\JunitResults.xml
+  - task: PublishTestResults@2
+    displayName: Publish Test Results
+    inputs:
+      testResultsFiles: '**\*.xml'
+      searchFolder: $(build.artifactstagingdirectory)
